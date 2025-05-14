@@ -1,3 +1,4 @@
+
 import pygame
 import chess
 import random
@@ -85,11 +86,11 @@ def show_game_over(result):
     overlay.fill((0, 0, 0))
     screen.blit(overlay, (0, 0))
     if result == '1-0':
-        msg = '白方勝利!'
+        msg = 'white win!'
     elif result == '0-1':
-        msg = '黑方勝利!'
+        msg = 'black win!'
     else:
-        msg = '和局!'
+        msg = 'draw!'
     text = font.render(msg, True, (255,255,255))
     rect = text.get_rect(center=(WIDTH//2, HEIGHT//2))
     screen.blit(text, rect)
@@ -148,15 +149,24 @@ def main():
     selected = None
     ai_thinking=False
     game_over=False
-    ai_depth=2
+    ai_depth=5
     running=True
     # AI 首次思考
     def ai_thread():
-        nonlocal ai_thinking
+        nonlocal ai_thinking, game_over
         time.sleep(0.5)
+        # 如果已經有人結束遊戲或不是黑方回合，直接跳出
+        if game_over or board.turn != chess.BLACK:
+            ai_thinking = False
+            return
+        # 計算並落子
         move = find_best_move(board, ai_depth)
-        if move: board.push(move)
-        ai_thinking=False
+        if move:
+            board.push(move)
+        # AI 落子後檢查是否結束，設定旗標
+        if board.is_game_over():
+            game_over = True
+        ai_thinking = False
     while running:
         for e in pygame.event.get():
             if e.type==pygame.QUIT: running=False
@@ -174,8 +184,14 @@ def main():
                         mv=chess.Move(selected,sq,promotion=chess.QUEEN)
                     if mv in board.legal_moves:
                         board.push(mv)
-                        ai_thinking=True
-                        threading.Thread(target=ai_thread, daemon=True).start()
+                        # 如果這步棋已經結束遊戲，就不要再讓 AI 思考，直接結束遊戲
+                        if board.is_game_over():
+                            game_over = True
+                        else:
+                            ai_thinking = True
+                            threading.Thread(target=ai_thread, daemon=True).start()
+                    selected = None
+
                     selected=None
         if not game_over and board.is_game_over(): game_over=True
         screen.fill(BG_COLOR)
