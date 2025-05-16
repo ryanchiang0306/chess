@@ -56,12 +56,3 @@ pip install pygame python-chess
 
 ---
 
-## 貢獻與回饋
-
-歡迎發送 Issue 或 Pull Request，無論是錯誤回報、功能建議，或是程式優化，都非常感謝您的貢獻。
-
----
-
-## 授權聲明
-
-本專案以 MIT License 授權，詳見 `LICENSE`。
