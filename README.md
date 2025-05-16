@@ -30,6 +30,7 @@ pip install pygame python-chess
 1. 下載或 Clone 本專案至本機：
 
    ```bash
+   https://github.com/ryanchiang0306/chess.git
    ```
 
 git clone [https://github.com/yourname/chess-game.git](https://github.com/yourname/chess-game.git)
