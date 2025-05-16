@@ -1,51 +1,78 @@
-強化西洋棋 AI
+# Chess 遊戲 README
 
-這是一個基於 Pygame 與 python-chess 的簡易西洋棋遊戲，結合強化評估函數與 Minimax + αβ 剪枝，實現人機對戰功能。
+## 專案介紹
 
-主要功能:
+這是一款以 Python 開發的國際象棋遊戲，結合了 AI 與雙人對弈功能，使用 `pygame` 作為圖形介面，並利用 `python-chess` 庫處理棋盤邏輯與走法判斷。
 
-* 玩家與 AI 對戰，白方由玩家操作，黑方由 AI 控制
-* 強化評估函數：整合物質價值、位置價值（PST）與流動性評分
-* 搜尋演算法：Minimax 結合 αβ 剪枝，並優先處理吃子和升變走法
-* 圖形化介面：使用 Pygame 繪製棋盤、棋子以及合法走法標示
-* 重啟遊戲：按下 R 鍵可重新開始
+## 功能特色
 
-檔案結構:
+* **單人對 AI**：內建多種難度（Easy、Medium、Hard、Master），採用 Minimax + Alpha-Beta 剪枝與靜態搜索（Quiescence Search）。
+* **雙人對弈**：同螢幕下雙人對戰模式。
+* **走步提示**：玩家選中棋子後，自動高亮可行走的步數。
+* **悔棋功能**：支援在雙人模式上一手悔棋，AI 模式悔棋會同時回退玩家與 AI 的兩步。
+* **遊戲評估**：即時顯示棋盤評估分數，幫助玩家掌握局勢。
+* **結果顯示**：遊戲結束後顯示勝負或和局訊息，並支援重新開始。
 
-* assets 資料夾：存放所有棋子圖檔，檔名為 wP.png, bK.png 等共 12 種
-* chess\_gui.py：遊戲主程式
-* README（本檔）：專案說明
+## 安裝需求
 
-環境需求:
+* Python 3.8 以上
+* `pygame`
+* `python-chess`
 
-* Python 3.12 或更新版本
-* Pygame
-* python-chess
+可透過以下指令一次安裝：
 
-安裝步驟:
+```bash
+pip install pygame python-chess
+```
 
-1. 進入專案資料夾
-2. 執行 pip install pygame python-chess
-3. 確認 assets 資料夾中含有 12 種棋子圖檔
+## 快速上手
 
-執行方式:
-使用對應 Python 直譯器執行 chess\_gui.py，例如：
-python chess\_gui.py
+1. 下載或 Clone 本專案至本機：
 
-操作說明:
+   ```bash
+   ```
 
-* 移動棋子：先點擊要移動的棋子，再點擊目標格子
-* 重啟棋局：按下 R 鍵
-* 結束程式：關閉視窗
+git clone [https://github.com/yourname/chess-game.git](https://github.com/yourname/chess-game.git)
+cd chess-game
 
-AI 強度調整:
-在程式中修改 ai\_depth 參數，數值越大 AI 思考時間越長但棋力越強。
+````
+2. 安裝相依套件（見上方）。
+3. 在專案根目錄執行：
+   ```bash
+python main.py
+````
 
-後續改進建議:
+或者：
 
-* 為所有棋子加入位置權重表（PST）
-* 實作 Quiescence Search 以避免地平線效應
-* 使用置換表（Transposition Table）降低重複計算
-* 採用 Iterative Deepening，允許設定思考時間上限
+```bash
+python chess_game.py
+```
 
-歡迎提出建議和改進方案。
+4. 遊戲介面啟動後，根據提示選擇遊戲模式與難度，開始對弈！
+
+## 操作說明
+
+* **選擇棋子**：滑鼠左鍵點擊棋盤上的棋子。
+* **移動棋子**：再度點擊合法目標格。
+* **悔棋**：點擊側邊欄「Undo Move」按鈕。
+* **重新開始**：點擊「restart」按鈕或按鍵盤 R。
+* **切換難度**：點擊側邊欄難度按鈕。
+* **切換模式**：點擊 AI Battle / Two-player battle 按鈕。
+
+## 程式結構
+
+```
+├── main.py           # 程式進入點
+├── chess_game.py     # 遊戲邏輯（ChessGame 類）
+├── chess_ui.py       # 介面繪製與事件處理（ChessUI 類）
+├── assets/           # 棋子圖片資源（PNG）
+└── README.md         # 專案說明
+```
+
+## 開發與貢獻
+
+歡迎提交 Issue 或 Pull Request，分享改進建議或新功能！
+
+## 授權
+
+本專案採用 MIT License，詳見 `LICENSE`。
